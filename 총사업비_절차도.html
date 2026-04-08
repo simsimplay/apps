@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>총사업비 조정 시 사업적정성재검토 절차</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #f0f4f8;
+      padding: 18px 16px 24px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #1a3a6b;
+      margin-bottom: 3px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #7a8fa6;
+      margin-bottom: 14px;
+    }
+
+    /* 메인 플로우 컨테이너 */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* 단계 카드 */
+    .step {
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px 6px;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1a2c44;
+    }
+
+    .step-route {
+      font-size: 0.68rem;
+      color: #888;
+      font-weight: 400;
+      margin-left: 3px;
+    }
+
+    .step-body {
+      padding: 0 14px 8px 46px;
+    }
+
+    .step-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .step-body ul li {
+      font-size: 0.75rem;
+      color: #3b4c60;
+      line-height: 1.5;
+      padding: 1px 0 1px 12px;
+      position: relative;
+    }
+
+    .step-body ul li::before {
+      content: '○';
+      position: absolute;
+      left: 0;
+      color: #a0b0c0;
+      font-size: 0.6rem;
+      top: 4px;
+    }
+
+    .step-body .note {
+      margin-top: 5px;
+      background: #fff8e6;
+      border-left: 3px solid #f5a623;
+      border-radius: 0 4px 4px 0;
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      color: #7a5800;
+      line-height: 1.45;
+    }
+
+    /* 색상 팔레트 */
+    .c1 { background: #1a6fbf; }
+    .c2 { background: #2e7d32; }
+    .c3 { background: #b71c1c; }
+    .c4 { background: #6a1b9a; }
+    .c5 { background: #00695c; }
+    .c6 { background: #1565c0; }
+    .c7 { background: #4e342e; }
+    .c8 { background: #37474f; }
+
+    .border-c1 { border-top: 3px solid #1a6fbf; }
+    .border-c2 { border-top: 3px solid #2e7d32; }
+    .border-c3 { border-top: 3px solid #b71c1c; }
+    .border-c4 { border-top: 3px solid #6a1b9a; }
+    .border-c5 { border-top: 3px solid #00695c; }
+    .border-c6 { border-top: 3px solid #1565c0; }
+    .border-c7 { border-top: 3px solid #4e342e; }
+    .border-c8 { border-top: 3px solid #37474f; }
+
+    /* 화살표 */
+    .arrow-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .arrow-line {
+      width: 2px;
+      height: 10px;
+      background: #c5d3e0;
+    }
+    .arrow-head {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid #c5d3e0;
+    }
+
+    /* 킥오프 순서 박스 */
+    .sequence-box {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+    .seq-item {
+      background: #e3f2fd;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.68rem;
+      color: #0d47a1;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .seq-arrow {
+      color: #90a4ae;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .seq-note {
+      font-size: 0.67rem;
+      color: #888;
+      margin-top: 3px;
+    }
+
+    /* 범례 */
+    .legend {
+      max-width: 680px;
+      margin: 10px auto 0;
+      background: #fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .legend-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #444;
+      margin-right: 4px;
+    }
+    .org-tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+    .org-police { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .org-moef   { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .org-kdi    { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+    .org-com    { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+
+    /* 인쇄 최적화 */
+    @media print {
+      body { background: #fff; padding: 10px; }
+      .step { box-shadow: none; border: 1px solid #ddd; }
+      .legend { box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>관리대상사업 총사업비 조정 시 사업적정성재검토 절차</h1>
+  <p class="subtitle">기획재정부 총사업비 관리지침 기준 | 경찰청 청사사업 적용</p>
+
+  <div class="flow">
+
+    <!-- STEP 1 -->
+    <div class="step border-c1">
+      <div class="step-header">
+        <div class="step-num c1">1</div>
+        <div>
+          <span class="step-title">총사업비 조정요구</span>
+          <span class="step-route">경찰청 → 기획처 투자사업관리과</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>관리대상 사업을 경찰청에서 <strong>일괄취합</strong>하여 기획처(투자사업관리과)에 <strong>협의 요청</strong></li>
+        </ul>
+        <div class="note">⚠️ <strong>'26년도부터</strong> 투자사업관리과 협의 전 <strong>재경부 국유재산조정과 사전협의 必</strong></div>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 2 -->
+    <div class="step border-c2">
+      <div class="step-header">
+        <div class="step-num c2">2</div>
+        <div>
+          <span class="step-title">기획처 내부심의</span>
+          <span class="step-route">예산실장 또는 사회예산심의관 주재 · 총사업비 조정 심의</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>「총사업비 조정 심의(가칭)」 개최</li>
+          <li><strong>사재대상 사업</strong>은 <strong>사재 여부를 심의</strong> → <em>사재의뢰</em> 또는 <em>총사업비조정 결정</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 3 -->
+    <div class="step border-c3">
+      <div class="step-header">
+        <div class="step-num c3">3</div>
+        <div>
+          <span class="step-title">사재의뢰</span>
+          <span class="step-route">사재 결정 시 · 기획처 투자사업관리과 → 기획처 타당성심사과</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>기획처 투자사업관리과에서 <strong>기획처 타당성심사과에 사재 의뢰</strong></li>
+          <li>경찰청에 총사업비 조정요구서 <strong>반려 통보</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 4 -->
+    <div class="step border-c4">
+      <div class="step-header">
+        <div class="step-num c4">4</div>
+        <div>
+          <span class="step-title">사재 기관 선정</span>
+          <span class="step-route">기획처 타당성심사과 → KDI 또는 조세재정연구원</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>사재 의뢰받은 타당성심사과에서 여러 사항을 고려하여 <strong>사재기관 선정</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 5 -->
+    <div class="step border-c5">
+      <div class="step-header">
+        <div class="step-num c5">5</div>
+        <div>
+          <span class="step-title">사재 협의</span>
+          <span class="step-route">경찰청·시도청 ↔ 사재 기관 · 타당성심사과 주관</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sequence-box">
+          <span class="seq-item">킥오프미팅</span>
+          <span class="seq-arrow">→</span>
+          <span class="seq-item">현장실사</span>
+          <span class="seq-arrow">→</span>
+          <span class="seq-item">자료요구 등 협의</span>
+          <span class="seq-arrow">→</span>
+          <span class="seq-item">타당성심사과 주관 협의</span>
+        </div>
+        <p class="seq-note">※ 이견 없이 협의 시까지 진행 (통상 2회)</p>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 6 -->
+    <div class="step border-c6">
+      <div class="step-header">
+        <div class="step-num c6">6</div>
+        <div>
+          <span class="step-title">사재결과 보고 및 최종심의</span>
+          <span class="step-route">차관 주재 · 재정사업평가위원회</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>타재·사재 등 안건이 있을 시 위원회 개최 (통상 매달 개최)</li>
+          <li>사업 추진기관 <strong>국장급 참석</strong>하여 질의응답 및 최종 의견 개진</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 7 -->
+    <div class="step border-c7">
+      <div class="step-header">
+        <div class="step-num c7">7</div>
+        <div>
+          <span class="step-title">사재결과 통보</span>
+          <span class="step-route">기획처 타당성심사과 → 기획처 투자사업관리과, 경찰청</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li>사재 결과를 관련 기관에 공식 통보</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arrow-wrap"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- STEP 8 -->
+    <div class="step border-c8">
+      <div class="step-header">
+        <div class="step-num c8">8</div>
+        <div>
+          <span class="step-title">총사업비 조정 재요구 및 확정</span>
+          <span class="step-route">경찰청 → 기획처 투자사업관리과</span>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul>
+          <li><strong>사재 결과대로</strong> 다시 총사업비 조정 요구 후 협의 및 <strong>총사업비 조정 확정</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 범례 -->
+  <div class="legend">
+    <span class="legend-title">🏷️ 기관 범례</span>
+    <span class="org-tag org-police">경찰청 / 시도청</span>
+    <span class="org-tag org-moef">기획재정부(기획처)</span>
+    <span class="org-tag org-kdi">KDI / 조세재정연구원</span>
+    <span class="org-tag org-com">차관 / 위원회</span>
+  </div>
+
+</body>
+</html>
